@@ -28,6 +28,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.main {
+  min-height: 100vh;
+}
 .container {
   padding: 50px 0;
 }
