@@ -1,15 +1,9 @@
-const user = [
-  {
-    userid: 0,
-    username: "admin",
-    password: "admin",
-    sex: 0,
-    avatar:
-      "https://tva4.sinaimg.cn/large/005ucgoIly1g3iihv8xsmj30b40b4acn.jpg",
-    collect: [],
-    zan: [],
-  },
-];
-export default {
-  user,
-};
+import fs from "fs";
+
+export const getData = fs.readFile("./data.js", function (err, data) {
+  if (err) {
+    return console.error(err);
+  }
+  console.log("异步读取: " + data.toString());
+  return data;
+});

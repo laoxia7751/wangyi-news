@@ -8,11 +8,11 @@
     <article class="article" v-html="article.body" />
 
     <div class="articleFooter">
-      <div class="footItem">
+      <div class="footItem" @click="likeTooggle">
         <i class="iconfont icon-zan3"></i>
         <span>点赞</span>
       </div>
-      <div class="footItem">
+      <div class="footItem" @click="collectTooggle">
         <i class="iconfont icon-shoucang3"></i>
         <span>收藏</span>
       </div>
@@ -29,7 +29,7 @@ export default {
     const route = useRoute();
     const state = reactive({
       docid: route.query.id,
-      article: {}
+      article: {},
     })
     // 请求新闻详情
     const getDetails = async (docid) => {
