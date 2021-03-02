@@ -1,4 +1,4 @@
-<script setup lang="jsx">
+<script lang="jsx">
 import { defineComponent, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -8,7 +8,7 @@ export default defineComponent({
 		const router = useRouter()
 		const skip = docid => router.push(`/article?id=${props.docid}`)
 		return () => (
-			<div class="newItem" >
+			<div class="newItem" onClick={skip}>
 				<div class="words">
 					<h2 class="title">{props.title}</h2>
 					<p class="attrs">
@@ -44,6 +44,7 @@ export default defineComponent({
     .title {
       font-size: 15px;
       line-height: 1.5;
+      color: var(--text-color);
     }
     .attrs {
       display: grid;

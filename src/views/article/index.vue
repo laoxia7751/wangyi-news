@@ -70,7 +70,7 @@ export default {
   .article {
     font-size: 16px;
     word-break: break-all;
-    color: #404040;
+    color: var(--text-color);
     line-height: 1.5;
     p {
       text-align: justify;
@@ -100,7 +100,7 @@ export default {
         position: absolute;
         left: 0;
         top: 9px;
-        background: #404040;
+        background: var(--text-color);
       }
     }
   }
@@ -112,9 +112,9 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: #fff;
+    background-color: var(--bg);
     z-index: 10;
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 5px var(--shadow-color);
     .footItem {
       height: 100%;
       display: flex;
@@ -122,7 +122,7 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      color: #666;
+      color: var(--text-color);
       &.active {
         color: #ee1a1a;
       }

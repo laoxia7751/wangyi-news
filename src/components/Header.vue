@@ -20,7 +20,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .header {
   width: 100%;
   height: 50px;
@@ -29,8 +29,8 @@ export default {
   position: fixed;
   top: 0;
   z-index: 10;
-  background-color: #fff;
-  box-shadow: 0 1px 1px #f5f5f5;
+  background-color: var(--bg);
+  box-shadow: 0 1px 1px var(--shadow-color);
   .headerWrap {
     position: relative;
     .back {
@@ -40,7 +40,7 @@ export default {
       left: 0;
       top: 0;
       font-size: 20px;
-      color: #333;
+      color: var(--text-color);
     }
   }
   h1 {
@@ -49,7 +49,7 @@ export default {
     align-items: center;
     font-weight: normal;
     span:first-child {
-      color: #ee1a1a;
+      color: var(--primary-color);
     }
   }
 }

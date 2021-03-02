@@ -26,8 +26,8 @@ export default {
   width: 100%;
   height: 50px;
   bottom: 0;
-  background: #fff;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  background: var(--bg);
+  box-shadow: 0 1px 5px var(--shadow-color);
   display: grid;
   grid-template-columns: 50% 50%;
   z-index: 100;

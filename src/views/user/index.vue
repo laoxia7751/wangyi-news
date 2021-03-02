@@ -8,11 +8,11 @@
     </div>
     <div class="panelList">
       <listItem label="夜览模式">
-        <el-switch v-model="value" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+        <el-switch v-model="night" active-color="#f00" inactive-color="#ccc" @change="handleThemeChange"></el-switch>
       </listItem>
       <listItem label="我的收藏" />
       <listItem label="我赞过的" />
-      <listItem label="清除缓存" />
+      <listItem label="清除缓存" @handleclick="clearStorage" />
     </div>
   </div>
 </template>
@@ -20,7 +20,9 @@
 <script>
 import listItem from './listItem.vue'
 import { getBackgroundImg } from '/@api'
-import { onBeforeMount, reactive } from 'vue'
+import { onBeforeMount, reactive, toRefs } from 'vue'
+import { useStore } from 'vuex'
+import { ElMessage } from 'element-plus'
 export default {
   components: {
     listItem
@@ -31,9 +33,11 @@ export default {
     }
   },
   setup () {
+    const store = useStore()
     const state = reactive({
       bgImg: '',
-      user: {}
+      user: {},
+      night: store.state.theme === 'dark-theme'
     })
     // 获取背景图
     const getBg = async () => {
@@ -43,7 +47,19 @@ export default {
     !state.bgImg && onBeforeMount(() => {
       getBg()
     })
-    return state
+    // 夜览模式switch改变监听
+    const handleThemeChange = status => {
+      store.commit('toggleTheme', status ? 'dark-theme' : '')
+    }
+    // 清除缓存
+    const clearStorage = () => {
+      ElMessage.success('清除成功！');
+    }
+    return {
+      ...toRefs(state),
+      handleThemeChange,
+      clearStorage
+    }
   }
 }
 </script>
@@ -51,7 +67,7 @@ export default {
 <style lang="scss" scoped>
 .top {
   padding: 15vw 0 10vw;
-  background-color: #f1f1f1;
+  background-color: var(--bg);
   .avatar {
     width: 20vw;
     height: 20vw;
@@ -73,6 +89,6 @@ export default {
   }
 }
 .panelList {
-  border-top: 1px solid #f1f1f1;
+  border-top: 1px solid var(--shadow-color);
 }
 </style>

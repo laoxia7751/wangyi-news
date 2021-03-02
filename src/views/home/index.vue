@@ -2,18 +2,6 @@
   <div class="homePage">
     <scrollList pulldown listenScroll :scrollData="newList" @scrollEnd="handleScrollEnd">
       <div class="list" v-if="newList.length">
-        <!-- <div class="newItem" v-for="item in newList" :key="item.docid" @click="$router.push(`/article?id=${item.docid}`)">
-          <div class="words">
-            <h2 class="title">{{item.title}}</h2>
-            <p class="attrs">
-              <span class="scouce">{{item.source}}</span>
-              <span class="time">{{item.time}}</span>
-            </p>
-          </div>
-          <div class="img">
-            <img :src="item.imgsrc" :alt="item.title" />
-          </div>
-        </div>-->
         <newItem v-for="item in newList" :key="item.docid" v-bind="item" />
       </div>
     </scrollList>
@@ -48,7 +36,9 @@ export default {
       const data = await getNewList(params)
       state.params = params
       const list = data.data.map(item => ({ ...item, time: item.time.split(' ').shift() }))
-      state.newList = params.start === 1 ? list : state.newList.concat(list)
+      let newList = params.start === 1 ? list : state.newList.concat(list)
+      localStorage.setItem('newList', JSON.stringify(newList))
+      state.newList = newList
       state.loading = false
     }
     // 滚动到底部监听
@@ -59,7 +49,8 @@ export default {
 
     onBeforeMount(() => {
       // 初始请求数据
-      getList()
+      let newList = localStorage.getItem('newList')
+      newList ? (state.newList = JSON.parse(newList)) : getList()
     })
     return {
       ...toRefs(state),
