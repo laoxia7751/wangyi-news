@@ -2,9 +2,9 @@
   <div class="userPage">
     <div class="top" :style="`background-image: url(${bgImg})`">
       <div class="avatar">
-        <img src="https://tva4.sinaimg.cn/large/005ucgoIly1g3iihv8xsmj30b40b4acn.jpg" alt />
+        <img :src="user.avatar" alt />
       </div>
-      <p>管理员</p>
+      <p>{{user.nickname}}</p>
     </div>
     <div class="panelList">
       <listItem label="夜览模式">
@@ -35,8 +35,9 @@ export default {
   setup () {
     const store = useStore()
     const state = reactive({
-      bgImg: '',
-      user: {},
+      bgImg: 'https://tva3.sinaimg.cn/large/0080xEK2ly1gb1eawg7r2j306y06ya9y.jpg',
+      isLogin: store.state.isLogin,
+      user: store.state.user,
       night: store.state.theme === 'dark-theme'
     })
     // 获取背景图

@@ -1,15 +1,33 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
-import { resolve } from "path";
+import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), vueJsx()],
-  alias: {
-    "/@": resolve(__dirname, "./src"),
-    "/@com": resolve(__dirname, "./src/components"),
-    "/@api": resolve(__dirname, "./src/api"),
+  resolve: {
+    alias: {
+      "/@": path.resolve(path.dirname(""), "./src"),
+      "/@com": path.resolve(path.dirname(""), "./src/components"),
+      "/@api": path.resolve(path.dirname(""), "./src/api"),
+      "@server": path.resolve(path.dirname(""), "./server"),
+    },
   },
-  open: true,
+  server: {
+    open: true,
+    cors: true,
+    proxy: {
+      "/api": {
+        target: "https://v1.alapi.cn/api",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+      "/sys-api": {
+        target: "http://localhost:8080",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/sys-api/, ""),
+      },
+    },
+  },
 });

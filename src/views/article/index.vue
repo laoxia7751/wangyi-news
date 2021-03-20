@@ -41,10 +41,17 @@ export default {
         return `<img src='${imgItem.src}'/>`
       })
       state.article = { ...data.data, body }
+      localStorage.setItem('article', JSON.stringify({ ...data.data, body }))
     }
     onBeforeMount(() => {
       // 初始请求数据
-      state.docid && getDetails(state.docid)
+      // 免费api单日请求上限为100次，缓存一下防止到达上限
+      let article = localStorage.getItem("article")
+      if (article) {
+        state.article = JSON.parse(article)
+      } else {
+        state.docid && getDetails(state.docid)
+      }
     })
 
     return state

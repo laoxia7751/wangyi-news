@@ -18,13 +18,7 @@ export const getNewList = (params) => {
  * @param {string} docid 网易新闻的docid
  */
 export const getNewDetails = (docid) => {
-  return request({
-    url: "/new/detail",
-    method: "get",
-    params: {
-      docid,
-    },
-  });
+  return request.get(`/api/new/detail?docid=${docid}`);
 };
 
 /**
@@ -48,4 +42,18 @@ export const getAvatar = (type = 2) => {
  */
 export const getBackgroundImg = () => {
   return request.get("https://api.66mz8.com/api/bg.img.php?format=json");
+};
+
+/**
+ * 用户登录
+ */
+export const userLogin = (data) => {
+  return request.post("/sys-api/login", data);
+};
+
+/**
+ * 用户注册
+ */
+export const userRegist = (data) => {
+  return request.post("/sys-api/regist", data);
 };
